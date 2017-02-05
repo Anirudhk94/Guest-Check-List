@@ -46,7 +46,7 @@ angular.module('ionicApp', ['ionic'])
   };
 })
 
-.controller('CheckinCtrl', function($scope, $http) {
+.controller('CheckinCtrl', function($scope, $http, $state) {
 
   var api = 'http://localhost:3000/';
   $scope.showForm = true;
@@ -73,6 +73,7 @@ angular.module('ionicApp', ['ionic'])
     };
     $http(req).success(function(data, status, headers, config) {
       console.log(data);
+       $state.go('eventmenu.attendees');
     })
 ;  };
 
