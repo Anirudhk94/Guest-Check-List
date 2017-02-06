@@ -79,10 +79,10 @@ angular.module('ionicApp', ['ionic'])
   };
 })
 
-.controller('AttendeesCtrl', function($scope, $ionicHistory, $http) {
+.controller('AttendeesCtrl', function($scope, $ionicHistory, $http, $state) {
   $scope.activity = [];
   $scope.arrivedChange = function(attendee) {
-    console.log(attendee);
+    console.log(attendee.id);
     var msg = attendee.firstname + ' ' + attendee.lastname;
     msg += (!attendee.arrived ? ' just left': ' has arrived');
     $scope.activity.push(msg);
@@ -93,12 +93,12 @@ angular.module('ionicApp', ['ionic'])
     var req = {
       method: 'DELETE',
       data: angular.toJson(attendee),
-      url: 'http://localhost:3000/users.json',
+      url: 'http://localhost:3000/users/'+attendee.id+'.json'
     };
     $http(req).success(function(data, status, headers, config) {
-      console.log(deleted);
+      console.log('deleted');
+      $state.reload();
 
-      $state.go('eventmenu.attendees');
     });
 
   };
