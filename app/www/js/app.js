@@ -47,7 +47,7 @@ angular.module('ionicApp', ['ionic'])
 })
 
 .controller('CheckinCtrl', function($scope, $http, $state, $ionicHistory) {
-  
+
   var api = 'http://localhost:3000/';
   $scope.showForm = true;
   
@@ -79,7 +79,7 @@ angular.module('ionicApp', ['ionic'])
   };
 })
 
-.controller('AttendeesCtrl', function($scope, $ionicHistory) {
+.controller('AttendeesCtrl', function($scope, $ionicHistory, $http) {
   $scope.activity = [];
   $scope.arrivedChange = function(attendee) {
     console.log(attendee);
@@ -89,6 +89,18 @@ angular.module('ionicApp', ['ionic'])
     if($scope.activity.length > 3) {
       $scope.activity.splice(0, 1);
     }
+
+    var req = {
+      method: 'DELETE',
+      data: angular.toJson(attendee),
+      url: 'http://localhost:3000/users.json',
+    };
+    $http(req).success(function(data, status, headers, config) {
+      console.log(deleted);
+
+      $state.go('eventmenu.attendees');
+    });
+
   };
 });
 
