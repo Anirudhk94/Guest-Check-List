@@ -46,8 +46,8 @@ angular.module('ionicApp', ['ionic'])
   };
 })
 
-.controller('CheckinCtrl', function($scope, $http, $state) {
-
+.controller('CheckinCtrl', function($scope, $http, $state, $ionicHistory) {
+  
   var api = 'http://localhost:3000/';
   $scope.showForm = true;
   
@@ -73,15 +73,13 @@ angular.module('ionicApp', ['ionic'])
     };
     $http(req).success(function(data, status, headers, config) {
       console.log(data);
-       $state.go('eventmenu.attendees');
-    })
-;  };
 
-  
+      $state.go('eventmenu.attendees');
+    });  
+  };
 })
 
-.controller('AttendeesCtrl', function($scope) {
-  
+.controller('AttendeesCtrl', function($scope, $ionicHistory) {
   $scope.activity = [];
   $scope.arrivedChange = function(attendee) {
     console.log(attendee);
@@ -92,5 +90,5 @@ angular.module('ionicApp', ['ionic'])
       $scope.activity.splice(0, 1);
     }
   };
-  
 });
+
